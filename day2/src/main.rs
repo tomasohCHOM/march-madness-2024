@@ -9,7 +9,31 @@ fn day2(file_contents: String) -> (u32, u32) {
     let square_size = 15;
 
     for row in 0..rows - square_size {
-        for col in 0..cols - square_size {}
+        for col in 0..cols - square_size {
+            let mut flag = true;
+            for i in 0..square_size {
+                for j in 0..square_size {
+                    if file_contents
+                        .lines()
+                        .nth(row + i)
+                        .unwrap()
+                        .chars()
+                        .nth(col + j)
+                        .unwrap()
+                        == '#'
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if !flag {
+                    break;
+                }
+                part2 += 1;
+                println!("{}", part2);
+            }
+        }
+        println!("{:?}", file_contents.lines().nth(row).unwrap());
     }
 
     return (part1, part2);
