@@ -13,6 +13,7 @@ fn part1(ingredients_list: &HashMap<String, Vec<String>>, base: &String) -> u32 
             }
         }
     }
+    output.remove(base);
     return output.len() as u32;
 }
 
