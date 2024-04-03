@@ -24,13 +24,14 @@ fn part1(lines: &Vec<String>) -> u32 {
     for v in logs.values() {
         if let Some(time) = v.values().nth(0) {
             output = time.parse::<u32>().unwrap();
+            break;
         }
     }
     return output;
 }
 
 fn part2(lines: &Vec<String>, unix_time: u32) -> u32 {
-    let timezone_offset = -7 * 3600;
+    let timezone_offset = 7 * 3600;
     let timezone = FixedOffset::west_opt(timezone_offset).unwrap();
     fn unix_timestamp_to_day(time: i64, timezone: chrono::FixedOffset) -> NaiveDate {
         let datetime = chrono::DateTime::from_timestamp(time, 0).unwrap();
@@ -51,7 +52,6 @@ fn part2(lines: &Vec<String>, unix_time: u32) -> u32 {
             entries += 1;
         }
     }
-    println!("{:?}", suspects);
     return (suspects.len() * entries) as u32;
 }
 
