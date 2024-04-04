@@ -1,3 +1,4 @@
+use regex::Regex;
 use std::fs;
 
 fn area_of_intersection(c1_x: f64, c1_y: f64, r1: f64, c2_x: f64, c2_y: f64, r2: f64) -> f64 {
@@ -61,35 +62,13 @@ fn main() {
 
     let mut captures: Vec<(i32, i32, i32)> = Vec::new();
     for line in lines {
-        let x: i32 = line
-            .split("x=")
-            .nth(1)
-            .unwrap()
-            .split(",")
-            .nth(0)
-            .unwrap()
-            .parse()
-            .unwrap();
-        let y: i32 = line
-            .split("y=")
-            .nth(1)
-            .unwrap()
-            .split(" ")
-            .nth(0)
-            .unwrap()
-            .parse()
-            .unwrap();
-        let r: i32 = line
-            .split("reach=")
-            .nth(1)
-            .unwrap()
-            .split("ft")
-            .nth(0)
-            .unwrap()
-            .parse()
-            .unwrap();
-
-        captures.push((x, y, r));
+        let re: Regex = Regex::new(r"\d+").unwrap();
+        let mut numbers = Vec::new();
+        for caps in re.captures_iter(&line) {
+            let number: i32 = caps[0].parse().unwrap();
+            numbers.push(number);
+        }
+        captures.push((numbers[0], numbers[1], numbers[2]));
     }
     println!("Part 1 Result: {:?}", part1(&captures));
     println!("Part 2 Result: {:?}", part2(&captures));

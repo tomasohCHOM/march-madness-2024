@@ -1,13 +1,10 @@
 use std::fs;
 
 fn part1(lines: &Vec<String>) -> u32 {
-    let mut output: u32 = 0;
-    for line in lines {
-        if line.starts_with("[STOP]") {
-            output += 1;
-        }
-    }
-    return output;
+    return lines
+        .iter()
+        .filter(|line| line.starts_with("[STOP]"))
+        .count() as u32;
 }
 
 fn part2(lines: &Vec<String>) -> u32 {
